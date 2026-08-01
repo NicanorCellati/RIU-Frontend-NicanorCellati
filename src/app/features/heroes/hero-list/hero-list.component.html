@@ -1,0 +1,104 @@
+<section class="mx-auto max-w-4xl p-6">
+  <header class="mb-5 flex items-center justify-between">
+    <h1 class="m-0 text-2xl font-semibold text-slate-800">Super Héroes</h1>
+    <button
+      type="button"
+      class="cursor-pointer rounded-md border-none bg-indigo-600 px-4 py-2 text-sm text-white hover:opacity-90"
+      (click)="onAdd()"
+    >
+      + Añadir héroe
+    </button>
+  </header>
+
+  <div class="mb-5 flex max-w-xs flex-col gap-1">
+    <label for="filter" class="text-sm text-slate-500">Filtrar por nombre</label>
+    <input
+      id="filter"
+      type="text"
+      [formControl]="filterControl"
+      placeholder="Ej: man"
+      autocomplete="off"
+      class="rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-indigo-600"
+    />
+  </div>
+
+  @if (errorMessage()) {
+    <p class="mb-4 rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-red-700" role="alert">
+      {{ errorMessage() }}
+    </p>
+  }
+
+  @if (pagedHeroes().length === 0 && !errorMessage()) {
+    <p class="py-8 text-center text-slate-500">No se encontraron héroes con ese criterio.</p>
+  } @else {
+    <table class="w-full border-collapse text-sm">
+      <thead>
+        <tr>
+          <th class="border-b border-slate-200 px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Nombre</th>
+          <th class="border-b border-slate-200 px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Nombre real</th>
+          <th class="border-b border-slate-200 px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Poder</th>
+          <th class="border-b border-slate-200 px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Universo</th>
+          <th class="w-40 border-b border-slate-200 px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (hero of pagedHeroes(); track hero.id) {
+          <tr>
+            <td class="border-b border-slate-200 px-3 py-2.5">{{ hero.name }}</td>
+            <td class="border-b border-slate-200 px-3 py-2.5">{{ hero.realName }}</td>
+            <td class="border-b border-slate-200 px-3 py-2.5">{{ hero.power }}</td>
+            <td class="border-b border-slate-200 px-3 py-2.5">
+              <span
+                class="inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold"
+                [class.bg-indigo-50]="hero.universe === 'Marvel'"
+                [class.text-indigo-700]="hero.universe === 'Marvel'"
+                [class.bg-sky-100]="hero.universe === 'DC'"
+                [class.text-sky-700]="hero.universe === 'DC'"
+                [class.bg-slate-100]="hero.universe === 'Valiant'"
+                [class.text-slate-600]="hero.universe === 'Valiant'"
+                [class.bg-amber-100]="hero.universe === 'Dark Horse'"
+                [class.text-amber-700]="hero.universe === 'Dark Horse'"
+              >
+                {{ hero.universe }}
+              </span>
+            </td>
+            <td class="flex gap-1.5 border-b border-slate-200 px-3 py-2.5">
+              <button
+                type="button"
+                class="cursor-pointer rounded-md border-none bg-slate-100 px-3 py-1.5 text-sm text-slate-700 hover:opacity-90"
+                (click)="onEdit(hero)"
+              >
+                Editar
+              </button>
+              <button
+                type="button"
+                class="cursor-pointer rounded-md border-none bg-red-600 px-3 py-1.5 text-sm text-white hover:opacity-90"
+                (click)="onDeleteRequest(hero)"
+              >
+                Borrar
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <app-pagination
+      [totalItems]="totalItems()"
+      [pageSize]="pageSize"
+      [currentPage]="page()"
+      (pageChange)="onPageChange($event)"
+    />
+  }
+</section>
+
+@if (heroToDelete(); as hero) {
+  <app-confirm-dialog
+    title="Eliminar héroe"
+    [message]="'¿Estás seguro que querés eliminar a ' + hero.name + '? Esta acción no se puede deshacer.'"
+    confirmLabel="Eliminar"
+    cancelLabel="Cancelar"
+    (confirmed)="onDeleteConfirm()"
+    (cancelled)="onDeleteCancel()"
+  />
+}
