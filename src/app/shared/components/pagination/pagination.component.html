@@ -1,0 +1,35 @@
+<nav class="my-5 flex flex-wrap justify-center gap-1.5" aria-label="Paginación de héroes">
+  <button
+    type="button"
+    class="cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:enabled:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+    [disabled]="currentPage() === 1"
+    (click)="goTo(currentPage() - 1)"
+  >
+    ‹ Anterior
+  </button>
+
+  @for (page of pages(); track page) {
+    <button
+      type="button"
+      class="cursor-pointer rounded-md border px-3 py-1.5 text-sm hover:enabled:bg-slate-100"
+      [class.bg-indigo-600]="page === currentPage()"
+      [class.border-indigo-600]="page === currentPage()"
+      [class.text-white]="page === currentPage()"
+      [class.border-slate-300]="page !== currentPage()"
+      [class.bg-white]="page !== currentPage()"
+      [class.text-slate-700]="page !== currentPage()"
+      (click)="goTo(page)"
+    >
+      {{ page }}
+    </button>
+  }
+
+  <button
+    type="button"
+    class="cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm text-slate-700 hover:enabled:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+    [disabled]="currentPage() === totalPages()"
+    (click)="goTo(currentPage() + 1)"
+  >
+    Siguiente ›
+  </button>
+</nav>
