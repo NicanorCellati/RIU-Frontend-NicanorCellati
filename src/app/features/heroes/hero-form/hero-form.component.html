@@ -1,0 +1,100 @@
+<section class="mx-auto max-w-md p-6">
+  <h1 class="mb-5 text-xl font-semibold text-slate-800">
+    {{ isEditMode() ? 'Editar héroe' : 'Nuevo héroe' }}
+  </h1>
+
+  @if (errorMessage()) {
+    <p class="mb-4 rounded-lg border border-red-200 bg-red-50 px-3.5 py-2.5 text-red-700" role="alert">
+      {{ errorMessage() }}
+    </p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="flex flex-col gap-4">
+    <div class="flex flex-col gap-1">
+      <label for="name" class="text-sm font-medium text-slate-600">Nombre de héroe</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        appUppercase
+        placeholder="Ej: SPIDERMAN"
+        class="rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-indigo-600"
+      />
+      @if (hasError('name', 'required')) {
+        <span class="text-xs text-red-600">El nombre es obligatorio.</span>
+      }
+      @if (hasError('name', 'minlength')) {
+        <span class="text-xs text-red-600">El nombre debe tener al menos 2 caracteres.</span>
+      }
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="realName" class="text-sm font-medium text-slate-600">Nombre real</label>
+      <input
+        id="realName"
+        type="text"
+        formControlName="realName"
+        placeholder="Ej: Peter Parker"
+        class="rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-indigo-600"
+      />
+      @if (hasError('realName', 'required')) {
+        <span class="text-xs text-red-600">El nombre real es obligatorio.</span>
+      }
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="power" class="text-sm font-medium text-slate-600">Poder</label>
+      <input
+        id="power"
+        type="text"
+        formControlName="power"
+        placeholder="Ej: Agilidad y sentido arácnido"
+        class="rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-indigo-600"
+      />
+      @if (hasError('power', 'required')) {
+        <span class="text-xs text-red-600">El poder es obligatorio.</span>
+      }
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="universe" class="text-sm font-medium text-slate-600">Universo</label>
+      <select
+        id="universe"
+        formControlName="universe"
+        class="rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-indigo-600"
+      >
+        @for (universe of universes; track universe) {
+          <option [value]="universe">{{ universe }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="imageUrl" class="text-sm font-medium text-slate-600">URL de imagen (opcional)</label>
+      <input
+        id="imageUrl"
+        type="text"
+        formControlName="imageUrl"
+        placeholder="https://..."
+        class="rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline focus:outline-2 focus:outline-offset-1 focus:outline-indigo-600"
+      />
+    </div>
+
+    <div class="mt-2 flex justify-end gap-2.5">
+      <button
+        type="button"
+        class="cursor-pointer rounded-md border-none bg-slate-100 px-4 py-2 text-sm text-slate-700 hover:opacity-90"
+        (click)="cancel()"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="cursor-pointer rounded-md border-none bg-indigo-600 px-4 py-2 text-sm text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+        [disabled]="saving()"
+      >
+        {{ saving() ? 'Guardando…' : 'Guardar' }}
+      </button>
+    </div>
+  </form>
+</section>
