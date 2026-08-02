@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
 
 /**
- * Rutas de la aplicación, con lazy loading por feature: el bundle inicial
- * no incluye el código de heroes hasta que el usuario navega ahí.
+ * Rutas de la aplicación, con lazy loading por feature.
  */
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'heroes' },
@@ -10,6 +9,16 @@ export const routes: Routes = [
     path: 'heroes',
     loadComponent: () =>
       import('./features/heroes/hero-list/hero-list.component').then((m) => m.HeroListComponent),
+  },
+  {
+    path: 'heroes/nuevo',
+    loadComponent: () =>
+      import('./features/heroes/hero-form/hero-form.component').then((m) => m.HeroFormComponent),
+  },
+  {
+    path: 'heroes/:id/editar',
+    loadComponent: () =>
+      import('./features/heroes/hero-form/hero-form.component').then((m) => m.HeroFormComponent),
   },
   { path: '**', redirectTo: 'heroes' },
 ];
