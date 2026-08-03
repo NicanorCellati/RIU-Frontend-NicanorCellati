@@ -7,7 +7,7 @@ Prueba técnica Frontend — Mantenimiento de Super Héroes, desarrollada en **A
 
 Todos los componentes usan utilidades de Tailwind directamente en el template — no hay archivos `.css` por componente.
 
-Configuración: `tailwindcss` + `@tailwindcss/postcss` (Tailwind v4, sin necesidad de `tailwind.config.js` — la detección de contenido es automática), con `.postcssrc.json` en la raíz y `@use 'tailwindcss';` en `src/styles.css`.
+Configuración: `tailwindcss` + `@tailwindcss/postcss` (Tailwind v4, sin necesidad de `tailwind.config.js` — la detección de contenido es automática), con `.postcssrc.json` en la raíz y `@import 'tailwindcss';` en `src/styles.css`.
 
 ## Sobre la versión de Angular
 
