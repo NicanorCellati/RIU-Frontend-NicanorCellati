@@ -12,7 +12,7 @@ RUN npm run build
 FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/riu-frontend-nicanor-cellati/browser /usr/share/nginx/html
+COPY --from=build /app/dist/RIU-Frontend-NicanorCellati/browser /usr/share/nginx/html
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
