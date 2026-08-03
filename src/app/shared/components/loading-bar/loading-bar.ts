@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { LoadingService } from '../../../core/services/loading.service';
+import { LoadingService } from '../../../core/services/loading/loading.service';
 
 /**
  * Barra de carga global. Se suscribe al Signal expuesto por LoadingService,

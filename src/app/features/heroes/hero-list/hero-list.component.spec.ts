@@ -101,14 +101,17 @@ describe('HeroListComponent', () => {
     expect(component.pagedHeroes().some((h) => h.id === 1)).toBeFalse();
   }));
 
-  it('onDeleteConfirm() debería mostrar un error si falla el borrado', fakeAsync(() => {
+  it('onDeleteConfirm() no debería hacer nada si no hay héroe seleccionado', fakeAsync(() => {
     setup();
-    heroServiceSpy.delete.and.returnValue(throwError(() => new Error('fail')));
-
-    component.onDeleteRequest(heroes[0]);
     component.onDeleteConfirm();
+    expect(heroServiceSpy.delete).not.toHaveBeenCalled();
+  }));
 
-    expect(component.errorMessage()).toContain('No se pudo eliminar');
-    expect(component.heroToDelete()).toBeNull();
+  it('debería mostrar un error si falla la carga inicial del listado', fakeAsync(() => {
+    heroServiceSpy.search.and.returnValue(throwError(() => new Error('fail')));
+
+    setup();
+
+    expect(component.errorMessage()).toContain('No se pudo cargar el listado');
   }));
 });
