@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 
 /**
  * Diálogo de confirmación genérico y reutilizable, comunicado con el
@@ -13,13 +13,13 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
   templateUrl: './confirm-dialog.component.html',
 })
 export class ConfirmDialogComponent {
-  @Input() title = 'Confirmar acción';
-  @Input() message = '¿Estás seguro?';
-  @Input() confirmLabel = 'Confirmar';
-  @Input() cancelLabel = 'Cancelar';
+  readonly title = input('Confirmar acción');
+  readonly message = input('¿Estás seguro?');
+  readonly confirmLabel = input('Confirmar');
+  readonly cancelLabel = input('Cancelar');
 
-  @Output() confirmed = new EventEmitter<void>();
-  @Output() cancelled = new EventEmitter<void>();
+  readonly confirmed = output<void>();
+  readonly cancelled = output<void>();
 
   onConfirm(): void {
     this.confirmed.emit();

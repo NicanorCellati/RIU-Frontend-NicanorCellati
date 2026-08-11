@@ -15,8 +15,8 @@ describe('ConfirmDialogComponent', () => {
 
   it('debería crearse con los textos por defecto', () => {
     expect(component).toBeTruthy();
-    expect(component.title).toBe('Confirmar acción');
-    expect(component.message).toBe('¿Estás seguro?');
+    expect(component.title()).toBe('Confirmar acción');
+    expect(component.message()).toBe('¿Estás seguro?');
   });
 
   it('onConfirm() debería emitir el evento confirmed', () => {
