@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 /**
  * Estado global de "cargando", expuesto como Signal readonly.
@@ -11,15 +11,13 @@ import { Injectable, signal } from '@angular/core';
 export class LoadingService {
   private readonly requestsInFlight = signal(0);
 
-  readonly loading = signal(false);
+  readonly loading = computed(() => this.requestsInFlight() > 0);
 
   start(): void {
     this.requestsInFlight.update((count) => count + 1);
-    this.loading.set(true);
   }
 
   stop(): void {
     this.requestsInFlight.update((count) => Math.max(0, count - 1));
-    this.loading.set(this.requestsInFlight() > 0);
   }
 }
