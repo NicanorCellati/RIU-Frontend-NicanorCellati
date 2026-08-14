@@ -83,6 +83,32 @@ describe('HeroFormComponent', () => {
     it('hasError() debería devolver false para un control que no existe en el form', () => {
       expect(component.hasError('id' as never, 'required')).toBeFalse();
     });
+
+    it('debería mostrar el error de "obligatorio" en el DOM cuando el campo touched está vacío', () => {
+      component.form.get('name')?.markAsTouched();
+      fixture.detectChanges();
+
+      const errors = fixture.debugElement.queryAll(By.css('span.text-red-600'));
+      expect(
+        errors.some((e) => e.nativeElement.textContent.includes('El nombre es obligatorio')),
+      ).toBeTrue();
+    });
+
+    it('el botón submit debería deshabilitarse mientras saving() es true', () => {
+      heroServiceSpy.create.and.returnValue(of(hero)); // o un Subject sin resolver, para capturar el estado "saving"
+      component.form.setValue({
+        name: 'SPIDERMAN',
+        realName: 'Peter Parker',
+        power: 'Agilidad y sentido arácnido',
+        universe: 'Marvel',
+        imageUrl: '',
+      });
+      component.saving.set(true);
+      fixture.detectChanges();
+
+      const submitBtn = fixture.debugElement.query(By.css('button[type="submit"]'));
+      expect(submitBtn.nativeElement.disabled).toBeTrue();
+    });
   });
 
   describe('modo edición (con :id)', () => {
@@ -106,31 +132,5 @@ describe('HeroFormComponent', () => {
       expect(heroServiceSpy.update).toHaveBeenCalledWith(jasmine.objectContaining({ id: 1 }));
       expect(routerSpy.navigate).toHaveBeenCalledWith(['/heroes']);
     });
-  });
-
-  it('debería mostrar el error de "obligatorio" en el DOM cuando el campo touched está vacío', () => {
-    component.form.get('name')?.markAsTouched();
-    fixture.detectChanges();
-
-    const errors = fixture.debugElement.queryAll(By.css('span.text-red-600'));
-    expect(
-      errors.some((e) => e.nativeElement.textContent.includes('El nombre es obligatorio')),
-    ).toBeTrue();
-  });
-
-  it('el botón submit debería deshabilitarse mientras saving() es true', () => {
-    heroServiceSpy.create.and.returnValue(of(hero)); // o un Subject sin resolver, para capturar el estado "saving"
-    component.form.setValue({
-      name: 'SPIDERMAN',
-      realName: 'Peter Parker',
-      power: 'Agilidad y sentido arácnido',
-      universe: 'Marvel',
-      imageUrl: '',
-    });
-    component.saving.set(true);
-    fixture.detectChanges();
-
-    const submitBtn = fixture.debugElement.query(By.css('button[type="submit"]'));
-    expect(submitBtn.nativeElement.disabled).toBeTrue();
   });
 });
