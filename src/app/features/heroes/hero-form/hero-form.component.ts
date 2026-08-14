@@ -33,7 +33,6 @@ export class HeroFormComponent {
     realName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(60)]],
     power: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(120)]],
     universe: this.fb.nonNullable.control<HeroUniverse>('Marvel', Validators.required),
-    imageUrl: [''],
   });
 
   constructor() {

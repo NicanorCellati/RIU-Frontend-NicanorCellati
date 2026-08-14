@@ -19,7 +19,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Peter Parker',
         power: 'Agilidad y sentido arácnido',
         universe: 'Marvel',
-        imageUrl: '',
       },
       {
         id: 2,
@@ -27,7 +26,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Clark Kent',
         power: 'Fuerza y vuelo',
         universe: 'DC',
-        imageUrl: '',
       },
       {
         id: 3,
@@ -35,7 +33,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Angelo Mortalli',
         power: 'Maquina de pelea',
         universe: 'Valiant',
-        imageUrl: '',
       },
       {
         id: 4,
@@ -43,7 +40,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Bruce Wayne',
         power: 'Estrategia e ingeniería',
         universe: 'DC',
-        imageUrl: '',
       },
       {
         id: 5,
@@ -51,7 +47,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Tony Stark',
         power: 'Armadura tecnológica',
         universe: 'Marvel',
-        imageUrl: '',
       },
       {
         id: 6,
@@ -59,7 +54,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Diana Prince',
         power: 'Fuerza y lazo de la verdad',
         universe: 'DC',
-        imageUrl: '',
       },
       {
         id: 7,
@@ -67,7 +61,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Logan',
         power: 'Regeneración y garras de adamantium',
         universe: 'Marvel',
-        imageUrl: '',
       },
       {
         id: 8,
@@ -75,7 +68,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Arthur Curry',
         power: 'Control de los mares',
         universe: 'DC',
-        imageUrl: '',
       },
       {
         id: 9,
@@ -83,7 +75,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Wade Wilson',
         power: 'Regeneración y humor letal',
         universe: 'Marvel',
-        imageUrl: '',
       },
       {
         id: 10,
@@ -91,7 +82,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Barry Allen',
         power: 'Súper velocidad',
         universe: 'DC',
-        imageUrl: '',
       },
       {
         id: 11,
@@ -99,7 +89,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Kristin Wells',
         power: 'Fuerza y vuelo',
         universe: 'DC',
-        imageUrl: '',
       },
       {
         id: 12,
@@ -107,7 +96,6 @@ export class InMemoryDataService implements InMemoryDbService {
         realName: 'Anung Un Rama',
         power: 'Demonio con gran corazón',
         universe: 'Dark Horse',
-        imageUrl: '',
       },
     ];
     return { heroes };
