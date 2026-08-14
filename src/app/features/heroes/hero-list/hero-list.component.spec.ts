@@ -5,6 +5,7 @@ import { of, throwError } from 'rxjs';
 import { SuperHero } from '../../../core/models/super-hero.model';
 import { HeroListComponent } from './hero-list.component';
 import { SuperHeroService } from '../../../core/services/super-hero/super-hero.service';
+import { By } from '@angular/platform-browser';
 
 describe('HeroListComponent', () => {
   let component: HeroListComponent;
@@ -113,5 +114,41 @@ describe('HeroListComponent', () => {
     setup();
 
     expect(component.errorMessage()).toContain('No se pudo cargar el listado');
+  }));
+
+  it('debería renderizar una fila de tabla por cada héroe', fakeAsync(() => {
+    setup();
+    const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+    expect(rows.length).toBe(2);
+    expect(rows[0].nativeElement.textContent).toContain('Spiderman');
+  }));
+
+  it('debería mostrar el mensaje de "no encontrados" cuando la lista queda vacía', fakeAsync(() => {
+    setup();
+    heroServiceSpy.search.and.returnValue(of([]));
+    component.filterControl.setValue('zzz');
+    tick(300);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain('No se encontraron héroes');
+    expect(fixture.debugElement.query(By.css('table'))).toBeNull();
+  }));
+
+  it('debería mostrar el mensaje de error en el DOM con role="alert"', fakeAsync(() => {
+    heroServiceSpy.search.and.returnValue(throwError(() => new Error('fail')));
+    setup();
+
+    const alert = fixture.debugElement.query(By.css('[role="alert"]'));
+    expect(alert).toBeTruthy();
+    expect(alert.nativeElement.textContent).toContain('No se pudo cargar el listado');
+  }));
+
+  it('el botón "Borrar" debería disparar onDeleteRequest() y renderizar el diálogo de confirmación', fakeAsync(() => {
+    setup();
+    const deleteBtn = fixture.debugElement.queryAll(By.css('tbody button'))[1];
+    deleteBtn.nativeElement.click();
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.css('app-confirm-dialog'))).toBeTruthy();
   }));
 });
