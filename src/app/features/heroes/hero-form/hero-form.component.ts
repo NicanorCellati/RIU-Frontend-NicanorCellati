@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
 
-import { HeroUniverse, SuperHero } from '../../../core/models/super-hero.model';
+import { HeroUniverse, SuperHeroFormValue } from '../../../core/models/super-hero.model';
 import { SuperHeroService } from '../../../core/services/super-hero/super-hero.service';
 import { UppercaseDirective } from '../../../core/directives/uppercase.directive';
 
@@ -85,8 +85,8 @@ export class HeroFormComponent {
   }
 
   /** Getter de conveniencia para simplificar el template con lambdas legibles. */
-  hasError(controlName: keyof SuperHero, error: string): boolean {
-    const control = this.form.get(controlName as string);
+  hasError(controlName: keyof SuperHeroFormValue, error: string): boolean {
+    const control = this.form.get(controlName);
     return !!control && control.touched && control.hasError(error);
   }
 }
