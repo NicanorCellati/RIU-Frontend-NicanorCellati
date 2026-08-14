@@ -16,7 +16,6 @@ export interface SuperHero {
   realName: string;
   power: string;
   universe: HeroUniverse;
-  imageUrl?: string;
 }
 
 /**
@@ -32,4 +31,4 @@ export interface PagedResult<T> {
   total: number;
   page: number;
   pageSize: number;
-};
+}

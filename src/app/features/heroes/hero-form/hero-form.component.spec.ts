@@ -66,7 +66,6 @@ describe('HeroFormComponent', () => {
         realName: 'Peter Parker',
         power: 'Agilidad y sentido arácnido',
         universe: 'Marvel',
-        imageUrl: '',
       });
 
       component.submit();
@@ -101,7 +100,6 @@ describe('HeroFormComponent', () => {
         realName: 'Peter Parker',
         power: 'Agilidad y sentido arácnido',
         universe: 'Marvel',
-        imageUrl: '',
       });
       component.saving.set(true);
       fixture.detectChanges();
