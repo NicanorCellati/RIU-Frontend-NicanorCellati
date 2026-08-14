@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InMemoryDbService, RequestInfo, ResponseOptions } from 'angular-in-memory-web-api';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { SuperHero } from '../../models/super-hero.model';
 
 /**
@@ -116,13 +116,5 @@ export class InMemoryDataService implements InMemoryDbService {
   /** Asigna ids incrementales al crear, como haría una API real. */
   genId(heroes: SuperHero[]): number {
     return heroes.length > 0 ? Math.max(...heroes.map((h) => h.id ?? 0)) + 1 : 1;
-  }
-
-  /**
-   * Simula latencia de red realista, para que el interceptor de loading
-   * y los estados de carga de la UI tengan sentido de mostrarse en pantalla.
-   */
-  responseInterceptor(res: ResponseOptions, _reqInfo: RequestInfo): ResponseOptions {
-    return res;
   }
 }
